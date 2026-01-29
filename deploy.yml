@@ -1,0 +1,27 @@
+name: Deploy with Secrets
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write  # This is the critical line for fixing exit code 128
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Inject Secrets into login.html
+        run: |
+          sed -i "s|REPLACE_USER_1|${{ secrets.ADMIN_USER_1 }}|g" login.html
+          sed -i "s|REPLACE_PASS_1|${{ secrets.ADMIN_PASS_1 }}|g" login.html
+          sed -i "s|REPLACE_USER_2|${{ secrets.ADMIN_USER_2 }}|g" login.html
+          sed -i "s|REPLACE_PASS_2|${{ secrets.ADMIN_PASS_2 }}|g" login.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
