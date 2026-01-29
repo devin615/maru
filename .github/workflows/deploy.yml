@@ -4,7 +4,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write  # This is the critical line for fixing exit code 128
+  contents: write
 
 jobs:
   build:
@@ -13,12 +13,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Inject Secrets into login.html
+      - name: Inject Secrets
         run: |
+          # We use | as a separator because it is safer for passwords
           sed -i "s|REPLACE_USER_1|${{ secrets.ADMIN_USER_1 }}|g" login.html
           sed -i "s|REPLACE_PASS_1|${{ secrets.ADMIN_PASS_1 }}|g" login.html
           sed -i "s|REPLACE_USER_2|${{ secrets.ADMIN_USER_2 }}|g" login.html
           sed -i "s|REPLACE_PASS_2|${{ secrets.ADMIN_PASS_2 }}|g" login.html
+          
+          # --- SELF-TEST ---
+          # This checks if the placeholders are still there. 
+          # If they are, the build will FAIL here so you know it didn't work.
+          if grep -q "REPLACE_USER_1" login.html; then
+            echo "ERROR: The secrets were NOT injected. Check your login.html for typos."
+            exit 1
+          else
+            echo "SUCCESS: Secrets injected successfully."
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
