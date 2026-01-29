@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-Bucks Prize Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="top-bar">
+            <a href="login.html" id="login-link" class="login-link">Login</a>
+            <button id="logout-btn" class="login-link" style="display: none;">Logout</button>
+        </div>
+
+        <header>
+            <h1 id="hub-title" class="hub-title">
+                <svg class="shuriken-icon" viewBox="0 0 100 100">
+                    <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z"/>
+                </svg>
+                <span id="title-text">V-Bucks Prize Hub</span>
+            </h1>
+            <p id="hub-subtitle" class="hub-subtitle">Track your stream winners and V-Bucks status.</p>
+        </header>
+
+        <div id="add-winner-form-container" class="form-container" style="display: none;">
+            <h2>Add New Winner</h2>
+            <form id="add-winner-form" class="form-grid">
+                <div>
+                    <label for="winner-name">Streamer Name</label>
+                    <input type="text" id="winner-name" placeholder="Username" required class="form-input">
+                </div>
+                <div>
+                    <label for="vbucks-amount">V-Bucks Amount</label>
+                    <div class="input-with-clear">
+                        <input type="number" id="vbucks-amount" placeholder="0" required min="1" class="form-input no-spinner">
+                        <button type="button" class="clear-field-btn" onclick="clearVbucks()">×</button>
+                    </div>
+                    <div class="quick-add-row">
+                        <button type="button" class="quick-btn" onclick="quickAdd(500)">+500</button>
+                        <button type="button" class="quick-btn" onclick="quickAdd(1000)">+1000</button>
+                        <button type="button" class="quick-btn" onclick="quickAdd(2000)">+2000</button>
+                    </div>
+                </div>
+                <div class="flex-align-end">
+                    <button type="submit" class="form-button">Record Prize</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="tracker-section">
+            <h2>Recent Winners</h2>
+            <div id="prize-list">
+                <p class="loading-text">No winners recorded yet.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>App ID: <span id="display-app-id">vbucks-hub-2026</span> | User: <span id="user-id-display">Guest</span></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

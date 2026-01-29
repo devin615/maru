@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Prize Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 400px; margin-top: 100px;">
+        <div class="form-container">
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <div style="margin-bottom: 15px;">
+                    <label>Username</label>
+                    <input type="text" id="username" class="form-input" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label>Password</label>
+                    <input type="password" id="password" class="form-input" required>
+                </div>
+                <button type="submit" class="form-button" style="width: 100%;">Login</button>
+            </form>
+            <p id="error" style="color: red; margin-top: 10px;"></p>
+        </div>
+    </div>
+
+    <script>
+        const admins = [
+    { u: 'REPLACE_USER_1', p: 'REPLACE_PASS_1' },
+    { u: 'REPLACE_USER_2', p: 'REPLACE_PASS_2' }
+];
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            const isAdmin = admins.find(a => a.user === u && a.pass === p);
+
+            if (isAdmin) {
+                localStorage.setItem('vbuck_user', JSON.stringify({ name: u, role: 'admin' }));
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('error').innerText = 'Invalid credentials.';
+            }
+        });
+    </script>
+</body>
+</html>
