@@ -69,3 +69,13 @@ body {
 .prize-item { background: var(--vbuck-card); padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--vbuck-green); }
 .vbucks-display { font-weight: bold; color: var(--vbuck-accent); font-size: 1.2rem; }
 footer { text-align: center; color: var(--gray-text); margin-top: 40px; font-size: 0.8rem; }
+/* Add this to style.css */
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Makes it circular */
+    object-fit: cover;   /* Prevents stretching */
+    margin-right: 15px;
+    border: 2px solid var(--vbuck-purple); /* Optional: adds a themed border */
+    align-self: center;
+}
