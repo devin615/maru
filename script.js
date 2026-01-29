@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logout-btn');
     const prizeList = document.getElementById('prize-list');
     const userIdDisplay = document.getElementById('user-id-display');
+    const profilePic = document.getElementById('profile-pic');
 
     // Winner Data (Currently resets on refresh unless using a database)
     let winners = [];
@@ -18,6 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
         loginLink.style.display = 'none';
         logoutBtn.style.display = 'block';
         userIdDisplay.innerText = currentUser.name;
+
+        // --- Profile Picture Logic ---
+        profilePic.style.display = 'block';
+        if (currentUser.name === 'nayr') {
+            profilePic.src = 'nayrProfile.png';
+        } else if (currentUser.name === 'maru') {
+            profilePic.src = 'moocow.png';
+        } else {
+            profilePic.src = 'default-profile.png'; 
+        }
     }
 
     // Add New Winner
