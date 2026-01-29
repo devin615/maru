@@ -25,20 +25,27 @@
     </div>
 
     <script>
+        // GitHub Actions will swap these placeholders
         const admins = [
-    { u: 'REPLACE_USER_1', p: 'REPLACE_PASS_1' }, 
-    { u: 'REPLACE_USER_2', p: 'REPLACE_PASS_2' }
-];
+            { u: 'REPLACE_USER_1', p: 'REPLACE_PASS_1' }, 
+            { u: 'REPLACE_USER_2', p: 'REPLACE_PASS_2' }
+        ];
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
+            
+            // 1. Get the values and force them to lowercase
+            const uInput = document.getElementById('username').value.toLowerCase();
+            const pInput = document.getElementById('password').value.toLowerCase();
 
-            const isAdmin = admins.find(a => a.user === u && a.pass === p);
+            // 2. Check against 'u' and 'p' (and ensure those are lowercase too)
+            const isAdmin = admins.find(a => 
+                a.u.toLowerCase() === uInput && 
+                a.p.toLowerCase() === pInput
+            );
 
             if (isAdmin) {
-                localStorage.setItem('vbuck_user', JSON.stringify({ name: u, role: 'admin' }));
+                localStorage.setItem('vbuck_user', JSON.stringify({ name: uInput, role: 'admin' }));
                 window.location.href = 'index.html';
             } else {
                 document.getElementById('error').innerText = 'Invalid credentials.';
